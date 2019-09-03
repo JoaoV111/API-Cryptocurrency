@@ -11,7 +11,7 @@ def index():
 
 @app.route('/currency/all', methods=['GET'])
 def currencies_list():
-	return jsonify(cg.get_exchanges_id_name_list())
+	return jsonify(cg.get_coins_list())
 
 @app.route('/currency', methods=['GET'])
 def currency_conv():
