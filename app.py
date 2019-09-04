@@ -38,7 +38,7 @@ def currency_conv():
 	try:
 		f_price = float(cg.get_price(ids = f_id, vs_currencies='usd')[f_id]['usd'])
 		s_price = float(cg.get_price(ids = s_id, vs_currencies='usd')[s_id]['usd'])
-		div1 = f_price/s_price
+		div1 = f_price / s_price
 		s_value = div1 * f_value
 
 		result = [{
