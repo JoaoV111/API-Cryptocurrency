@@ -23,21 +23,35 @@ def currency_conv():
 		s_id = str(request.args['s_id'])
 	else:
 		return "Error: No id field provided. Please specify the second id (s_id)."
+	if 'f_value' in request.args:
+		f_value = float(request.args['f_value'])
+	else:
+		return "Error: No id field provided. Please specify the second id (s_id)."
+
+	all_currencies = cg.get_coins_list()
+	for currency in all_currencies:
+		if currency['id'] == f_id:
+			f_name = currency['name']
+		if currency['id'] == s_id:
+			s_name = currency['name']
 
 	try:
 		f_price = float(cg.get_price(ids = f_id, vs_currencies='usd')[f_id]['usd'])
 		s_price = float(cg.get_price(ids = s_id, vs_currencies='usd')[s_id]['usd'])
 		div1 = f_price/s_price
-		div2 = s_price/f_price
+		s_value = div1 * f_value
+
 		result = [{
 			'id' : f_id,
 			'price' : f_price,
-			'div' : div1
+			'value' : f_value,
+			'name' : f_name
 		},
 		{
 			'id' : s_id,
 			'price' : s_price,
-			'div' : div2		
+			'value' : s_value,
+			'name' : s_name
 		}]
 		return jsonify(result)
 	except:
