@@ -9,4 +9,4 @@ List all currencies:
 https://joao-api-cryptocurrency.herokuapp.com/currency/all
   
 Return price of currencies:  
-https://joao-api-cryptocurrency.herokuapp.com/currency?f_id=bitcoin&s_id=iota
+https://joao-api-cryptocurrency.herokuapp.com/currency?f_id=bitcoin&s_id=iota&f_value=1.0
