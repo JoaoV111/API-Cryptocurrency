@@ -26,7 +26,7 @@ def currency_conv():
 	if 'f_value' in request.args:
 		f_value = float(request.args['f_value'])
 	else:
-		return "Error: No id field provided. Please specify the second id (s_id)."
+		return "Error: No id field provided. Please specify the first value (f_value)."
 
 	all_currencies = cg.get_coins_list()
 	for currency in all_currencies:
