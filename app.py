@@ -6,27 +6,32 @@ app = Flask(__name__)
 
 @app.route('/', methods=['GET'])
 def index():
-	return '''<h1>API-Cryptocurrencies Prices</h1>
-<p>Made by João Cesar</p>'''
+	return '''
+				<h1>API-Cryptocurrencies Prices</h1>
+			  	<p>Made by João Cesar</p>
+		   '''
 
 @app.route('/currency/all', methods=['GET'])
 def currencies_list():
-	return jsonify(cg.get_coins_list())
+	return jsonify(cg.get_coins_list()), 200, {'ContentType':'application/json'}
 
 @app.route('/currency', methods=['GET'])
 def currency_conv():
 	if 'f_id' in request.args:
 		f_id = str(request.args['f_id'])
 	else:
-		return "Error: No id field provided. Please specify the first id (f_id)."
+		return "Error: No id field provided. Please specify the first id (f_id).", 400
 	if 's_id' in request.args:
 		s_id = str(request.args['s_id'])
 	else:
-		return "Error: No id field provided. Please specify the second id (s_id)."
+		return "Error: No id field provided. Please specify the second id (s_id).", 400
 	if 'f_value' in request.args:
-		f_value = float(request.args['f_value'])
+		try:
+			f_value = float(request.args['f_value'])
+		except:
+			return "Error: No id field provided. Please specify the first value (f_value).", 400
 	else:
-		return "Error: No id field provided. Please specify the first value (f_value)."
+		return "Error: No id field provided. Please specify the first value (f_value).", 400
 
 	all_currencies = cg.get_coins_list()
 	for currency in all_currencies:
@@ -53,9 +58,9 @@ def currency_conv():
 			'value' : s_value,
 			'name' : s_name
 		}]
-		return jsonify(result)
+		return jsonify(result), 200, {'ContentType':'application/json'}
 	except:
-		return jsonify([{}])
+		return jsonify([{}]), 404
 
 
 
